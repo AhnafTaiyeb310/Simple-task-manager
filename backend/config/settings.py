@@ -21,11 +21,11 @@ DEBUG = env.bool("DEBUG", default=False)
 _allowed_hosts = [
     host for host in env.list(
         "ALLOWED_HOSTS",
-        default=['127.0.0.1', 'localhost', '.vercel.app']
+        default=['127.0.0.1', 'localhost', '.vercel.app', '.onrender.com']
     )
     if host
 ]
-ALLOWED_HOSTS = _allowed_hosts or ['127.0.0.1', 'localhost', '.vercel.app']
+ALLOWED_HOSTS = _allowed_hosts or ['127.0.0.1', 'localhost', '.vercel.app', '.onrender.com']
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=not DEBUG)
@@ -63,6 +63,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,6 +80,11 @@ CORS_ALLOWED_ORIGINS = env.list(
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.vercel\.app$",
 ]
+
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=["https://*.onrender.com", "https://*.vercel.app"]
+)
 
 ROOT_URLCONF = 'config.urls'
 
@@ -147,3 +153,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

@@ -11,3 +11,6 @@ wheels/
 
 # env file
 .env
+
+# Django generated static assets
+backend/staticfiles/
