@@ -81,3 +81,10 @@
  GET / 200 in 96ms (next.js: 8ms, application-code: 87ms)
 ✓ Compiled in 67ms
  GET / 200 in 186ms (next.js: 100ms, application-code: 86ms)
+[32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+✓ Ready in 1647ms
+
+ GET / 200 in 1649ms (next.js: 779ms, application-code: 870ms)

@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:8000";
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
   async rewrites() {
@@ -7,12 +9,12 @@ const nextConfig: NextConfig = {
       // Rule 1: Match paths ending with a trailing slash
       {
         source: "/api/:path*/",
-        destination: "http://127.0.0.1:8000/api/:path*/",
+        destination: `${BACKEND_URL}/api/:path*/`,
       },
       // Rule 2: Fallback for paths without a trailing slash
       {
         source: "/api/:path*",
-        destination: "http://127.0.0.1:8000/api/:path*",
+        destination: `${BACKEND_URL}/api/:path*`,
       },
     ];
   },
